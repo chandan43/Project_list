@@ -1,4 +1,192 @@
-Project done : 
+Project Done : 
+============
 
-1. Char driver : 
-    i. 
+1. Write a "hello linux" kernel module with init and exit routines and 
+   execute following tests
+
+   a) Insert module 
+   b) Try inserting module with init function returning -1.
+   c) Remove init and exit functions and try inserting module
+   d) Remove init function and try inserting module
+   e) Remove exit function and try inserting module
+   f) Try inserting module without MOUDLE_LICENSE macro 
+  
+Verify results for each of the above tests with lsmod and dmesg commands 
+========================================================================
+2. Write a kernel module that exports a function myexport()
+   invoke myexport() function from other module.(dependent module).
+
+   Verify following:
+
+   a) Observe meta files generated when the first module(exportmod.c) 
+      is built. 
+         -- exportmod.mod.c
+         -- Module.symvers
+
+   b) Observe meta files of dependent module(depmod.c)
+	 --depmod.mod.c
+
+   c) Try build dependent module from a different folder 
+		folder1
+                     -- exportmod.c
+                     -- Makefile
+		folder2
+		     -- depmod.c
+		     -- Makefile
+
+========================================================================
+3. Char Driver :
+===============
+
+    1. Creates a read-only char device that says how many times you've read from the dev file
+    2. Allocate 1024 bytes of kernel buffer and implement a char driver to provide read/write 
+       operation on the buffer. Write a test application to test read/write.
+    3. Allocate 2 kernel buffers of 1024 bytes each(DEVBUFA, DEVBUFB)implement a char driver  
+       that maps DEVBUFA to /dev/bufa  and DEVBUFB to /dev/bufb. Driver should provide support 
+       for read/write operations.
+       operation on the buffer. Write a test application to test read/write.
+    4. Write a char driver that implements open,release, and ioctl functions.Implement ioctl 
+       routine to support READ and WRITE commands, that read or write data from/to kernel buffer 
+       of size 1024 bytes.
+       Write an application that uses ioctl api, and execute read, write operations on char 
+       driver.
+    5. Write a simple char driver that implements open,release,read and write using ioctl,sysfs 
+       both  and  Write an application that uses ioctl api.
+    6. Register/Unregister a char driver using helper functions register_chrdev & unregister_chrdev.   
+
+Note: Access helper function documentation from kernel source tree using ctags
+      (vim -t __register_chrdev)
+
+========================================================================
+4. Advance Char Driver :
+======================
+
+    1. Implement char driver that supports open, release, and ioctl operations on Advanced Programmable 
+       Interrupt Controller(IOAPIC).
+
+       Implement ioctl Operations for the following
+
+	1. APIC_GETID  		: returns identification no of Apic
+	2. APIC_GETIRQS		: returns no of irq pins on APIC 
+	3. APIC_GETIRQSTATUS	: returns irq pin status (enabled, disabled)
+	4: APIC_GETIRQTYPE	: returns irq pin signal type
+
+       Write a test application to initiate and verify above commands.
+
+    2. Implement char driver that supports open, release, and ioctl operations on Real Time Clock(RTC).
+    
+========================================================================
+3. Sysfs:
+=========
+    1. Write a driver for Real Time Clock(RTC) and Advanced Programmable nterrupt Controller(IOAPIC) using 
+       sysfs(kobject).
+    2. Write a simple char driver that communicate with user space using sysfs interface.
+========================================================================
+4.Procfs:
+========
+    
+    1. Write a driver for Real Time Clock(RTC) and Advanced Programmable nterrupt Controller(IOAPIC) using 
+       procfs interface.
+
+========================================================================
+5. Locking/synchronization (Mutex lock / spinlock / read-write lock etc)
+========================================================================
+   1. Write a driver which is mentioned in section 3 ,4 and 5 using suitable lock.
+
+========================================================================
+6. Block Driver  
+===============
+   1. Simple block driver: Block device interface to support block device loadable modules.
+      on kernel 2.6.15 ,kernel 3.10.x and kernel 4.4.x 
+   2. RAM disk block device with Linux : Create driver for DiskOnRAM which holds 6 partition.
+   	- This would create the block device files representing the disk on 512 KibiBytes (KiB) 
+	  of RAM, with 3 primary and 3 logical partitions.
+	- Checkout the automatically created block device files (/dev/rb*). 000/dev/rb is the 
+	  entire disk of 512 KiB size. rb1, rb2, rb3 are the primary partitions with rb2 being 
+	  the extended partition and containing the 3 logical partitions rb5, rb6, rb7.
+	- Read the entire disk (/dev/rb) using the disk dump utility dd.
+	- Zero out the first sector of the disk’s first partition (/dev/rb1) again using dd.
+	- Write some text into the disk’s first partition (/dev/rb1) using cat.
+	- Unloading the driver using ‘rmmod dor‘ would vanish everything. Though the partition 
+	  needs to be unmounted using ‘umount /mnt‘ before doing that.
+   3. Write a flash driver for diff partition.
+========================================================================
+7. USB :
+=======
+   1.USB-input Device 
+     1.Mouse driver
+     2.Keyboard driver
+   2.USB-Mass storage driver 
+   3.USB skeleton driver
+   4.USB Bluetooth driver 
+   5.USB Test driver for gadget device 
+
+========================================================================
+8.PCI :
+======
+   1. PCI Device driver for realtek 8139 network card 
+   2. PCI Device driver for Generic PCI 4 Channel Audio PC 3D Sound Card with MIDI Game Port.
+   3. Basic PCI Device driver for  networking card.
+
+========================================================================
+9.Network :
+=========
+  1. Network driver for Realtek 8139 network card
+  2. Network driver for Begalbone black
+  3. Network driver for Atmel AT76C5XXx 
+========================================================================
+
+Embedded Driver on Begal Bone Black (BBB)
+=========================================
+1.Porting
+========
+   -Did manual and automated  porting on Begal Bone Black (BBB).
+       - Compiled own cross tool chain
+       - Build own boot loader
+       - Compiled compatible kernel version 
+       - Create own tool to help of busybox 
+       - Create own Rootfs 
+       - load all appropriate file using nfs(network file system), tftpboot and SD card.
+2.GPIO
+======
+   - Platform device GPIO
+      - GPIO led on/off using linux platform driver which is communicate with sysfs interface.
+      - GPIO led on/off with button using linux platform driver.
+      - GPIO led period control using kthread.
+      - GPIO Keyboard 
+      - GPIO Mouse
+      - GPIO based LCD driver 
+3.I2C 
+=====
+   - I2c driver for ADXL345 (3-axis accelerometer).
+   - I2c driver for Off borad RTC (DS3231) 
+   - I2c driver for LM75 (temperature sensor)
+   - I2c driver for EEPROM (DS3231)
+   - I2c driver for I2C Adapter LCD Module 1602 2004.
+   - I2c driver for Humidity Barometric Pressure BME280 sensor.
+4.SPI 
+=====
+   - SPI driver for ADXL345 (3-axis accelerometer).
+   - SPI Flash driver for w25q32 
+   - SPI Flash driver for  EN25T80
+   - SPI based EMMC driver
+
+5. USB SLAVE(GADGET) DRIVER 
+===========================
+   - USB GADGET driver for mass storage device 
+   - USB CUSTOM GADGET DRIVER : Which is control by USB host driver.
+   - USB CUSTOM GADGET DRIVER for HID device 
+
+6. I2c CUSTOM DRIVER
+====================
+   - Arduino I2c Custum Dev :  Firmware and Driver 
+
+Note : 
+====
+     - Lots of driver names  are not present here but drivers are  available in git branch.
+       mostly i tried to cover main driver only.
+     - Some of driver's README is also not present but if you need it then please 
+       mail me at beingchandanjha@gmail.com
+     - Most of the drivers are based on 3.10.x/4.4.x kernel version of drivers/* but has 
+       been rewritten to be easier to read and use.
+
