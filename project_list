@@ -120,6 +120,7 @@ Note: Access helper function documentation from kernel source tree using ctags
    3.USB skeleton driver
    4.USB Bluetooth driver 
    5.USB Test driver for gadget device 
+   6.USB based LAN driver for DM9601 USB 1.1 ethernet devices and rtl8150
 
 ========================================================================
 8.PCI :
@@ -133,7 +134,17 @@ Note: Access helper function documentation from kernel source tree using ctags
 =========
   1. Network driver for Realtek 8139 network card
   2. Network driver for Begalbone black
-  3. Network driver for Atmel AT76C5XXx 
+  3. Network driver for Atmel AT76C5XXx
+
+10.USERSPACE Driver:
+===================
+  1. Interrupt communication between userspace to kernel space  using uio.
+  2. Interrupt communication between userspace to kernel space and momery acees(MMAP) using uio.
+  3. Userspace driver for RTC Interrupt communication between userspace to kernel space and momery acees(MMAP) using uio.
+  4. Poll mode driver to communicate userspace to kernel space and momery acees(MMAP) using uio.
+  5. Userspace driver for RTC Interrupt communication between userspace to kernel space and momery acees(MMAP) using uio.
+  6. Doveloped userspace application for same.
+
 ========================================================================
 
 Embedded Driver on Begal Bone Black (BBB)
@@ -164,6 +175,8 @@ Embedded Driver on Begal Bone Black (BBB)
    - I2c driver for EEPROM (DS3231)
    - I2c driver for I2C Adapter LCD Module 1602 2004.
    - I2c driver for Humidity Barometric Pressure BME280 sensor.
+   - I2C stub driver and custom application to I2c address bus.
+
 4.SPI 
 =====
    - SPI driver for ADXL345 (3-axis accelerometer).
@@ -189,4 +202,20 @@ Note :
        mail me at beingchandanjha@gmail.com
      - Most of the drivers are based on 3.10.x/4.4.x kernel version of drivers/* but has 
        been rewritten to be easier to read and use.
+7. SPI BASED RFID Driver 
+========================
+     - Setting up Beaglebone Black for the RFID RC522
+     - Doveloped Driver for RFID RC522 which can scan , Read and write RFID Tag.
+     - Doveloped custom application to read  RFID Tag from userspace.
 
+Android kernel  Development| ====>
+---------------------------
+1. Andriod Marshmallow Porting on Beaglebone Black and Driver development
+   -Did manual and automated   Andriod Marshmallow porting on Begal Bone Black (BBB).
+       - Compiled own cross tool chain
+       - Build own boot loader
+       - Compiled compatible kernel version 
+       - Create own tool to help of busybox 
+       - Create own Rootfs 
+       - Ported to BBB.
+   -Doveloped basic driver and HAL lib on Andriod Marshmallow. 
